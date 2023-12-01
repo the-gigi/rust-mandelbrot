@@ -1,0 +1,9 @@
+[package]
+name = "mandelbrot"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+sdl2 = "0.36.0"
+time = "0.3.30"
+rand = "0.8.5"
