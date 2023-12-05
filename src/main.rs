@@ -26,8 +26,8 @@ pub fn main() {
 
     let mut event_pump = sdl_context.event_pump().unwrap();
     let mut i = 0;
-    let mut rng = rand::thread_rng();
-    let mut points = vec!(Point::new(0, 0));
+    //let mut rng = rand::thread_rng();
+    //let mut points = vec!(Point::new(0, 0));
     let mut s = Spiral::new();
     'running: loop {
         for event in event_pump.poll_iter() {
@@ -46,7 +46,8 @@ pub fn main() {
         // For performance, it's probably better to draw a whole bunch of points at once
         //canvas.draw_points(points.as_slice()).unwrap();
         let p = s.next().unwrap();
-        points.push(Point::new(p.0 + (w / 2) as i32, p.1 + (h / 2) as i32));
+        //points.push(Point::new(p.0 + (w / 2) as i32, p.1 + (h / 2) as i32));
+        let points = [Point::new(p.0 + (w / 2) as i32, p.1 + (h / 2) as i32)];
         canvas.draw_points(points.as_slice()).unwrap();
 
         canvas.present();
