@@ -28,7 +28,7 @@ https://github.com/Rust-SDL2/rust-sdl2#windows-msvc
 
 # Reference
 
-Here is another simple Rust implementations:
+Here is another simple Rust implementation with more polished look and fine-grained images:
 
 https://rotgers.io/posts/mandelbrot-rust/
 
