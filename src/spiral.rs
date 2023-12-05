@@ -1,6 +1,5 @@
 use std::collections::HashMap;
 use std::iter::Iterator;
-use std::io::{stdout, Write};
 
 #[derive(Debug)]
 pub struct Spiral {
@@ -70,20 +69,7 @@ mod tests {
 
     #[test]
     fn test_spiral() {
-        println!("test_spiral()");
-
-        let mut s = Spiral::new();
-
-        // for i in 1..12 {
-        //     let p = s.next().unwrap();
-        //     println!("{:?}", p)
-        // }
-
-
-
-
-
-
+        let s = Spiral::new();
         let points: Vec<(i32, i32)> = s.take(12).collect();
         let p0 = points[0];
         assert_eq!(p0, (0,0));
@@ -94,9 +80,6 @@ mod tests {
         );
 
         assert_eq!(points, expected);
-
-        println!("{:?}", expected);
-        println!("{:?}", points);
         for i in 0..points.len() {
             assert_eq!(&points[i], &expected[i]);
         }

@@ -1,5 +1,5 @@
 # rust-mandelbrot
-Draw the Mandelbrot set using Rust
+Draw the [Mandelbrot Set](https://en.wikipedia.org/wiki/Mandelbrot_set) using Rust
 
 # Requirements
 
