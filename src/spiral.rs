@@ -1,21 +1,21 @@
 use std::collections::HashMap;
 use std::iter::Iterator;
-
+use std::io::{stdout, Write};
 
 #[derive(Debug)]
-struct Spiral {
+pub struct Spiral {
     current: (i32, i32),
     dx: i32,
     dy: i32,
     remaining: i32,
     // how many remaining steps in current direction (denoted by dx, dy)
-    steps: i32, // how many total steps in current state of the spiral
-
+    arm: i32, // how many total steps in current state of the spiral
+    turns: i32, // total turns
     rotate_map: HashMap<(i32, i32), (i32, i32)>, // map for the next dx, dy when rotating right
 }
 
 impl Spiral {
-    fn new() -> Spiral {
+    pub fn new() -> Spiral {
         let rotate_vec = vec![
             ((1, 0), (0, -1)),
             ((0, -1), (-1, 0)),
@@ -24,11 +24,12 @@ impl Spiral {
         ];
         Spiral {
             current: (0, 0),
-            dx: 1,
-            dy: 0,
+            dx: 0,
+            dy: 1,
             remaining: 1,
-            steps: 1,
+            arm: 0,
             rotate_map: rotate_vec.into_iter().collect(),
+            turns: 0,
         }
     }
 }
@@ -44,20 +45,21 @@ impl Iterator for Spiral {
         // Increment the current value and return it
         if self.remaining > 0 {
             self.remaining -= 1
-        } else {
-            // if vertical increase steps
-            if self.dy != 0 {
-                self.steps += 1;
-                self.remaining = self.steps
-            }
-
+        }
+        if self.remaining == 0 {
             // rotate right
-            (self.dx, self.dy) = self.rotate_map[&(self.dx, self.dy)]
+            (self.dx, self.dy) = self.rotate_map[&(self.dx, self.dy)];
+
+            // every two turns of the spiral increase steps
+            if self.turns % 2 == 0 {
+                self.arm += 1;
+            }
+            self.remaining = self.arm;
+            self.turns += 1; // how many time did the spiral turn
         }
 
         self.current.0 += self.dx;
         self.current.1 += self.dy;
-
         Some(result)
     }
 }
@@ -70,20 +72,33 @@ mod tests {
     fn test_spiral() {
         println!("test_spiral()");
 
-        let s = Spiral::new();
+        let mut s = Spiral::new();
 
-        let points: Vec<(i32, i32)> = s.take(10).collect();
+        // for i in 1..12 {
+        //     let p = s.next().unwrap();
+        //     println!("{:?}", p)
+        // }
+
+
+
+
+
+
+        let points: Vec<(i32, i32)> = s.take(12).collect();
         let p0 = points[0];
         assert_eq!(p0, (0,0));
 
         let expected = vec!(
-            [(0,0), (1,0),(1,-1),(0,-1),(-1,-1),(-1,0),
-             (-1,1), (0,1),(1,1),(2,1),(2,0),(2,-1)]);
+            (0,0), (1,0),(1,-1),(0,-1),(-1,-1),(-1,0),
+            (-1,1), (0,1),(1,1),(2,1),(2,0),(2,-1)
+        );
 
-        // let zipped = points.zip(expected.into_iter());
-        //
-        // for (p, e) in zipped {
-        //     assert_eq!(p, e);
-        // }
+        assert_eq!(points, expected);
+
+        println!("{:?}", expected);
+        println!("{:?}", points);
+        for i in 0..points.len() {
+            assert_eq!(&points[i], &expected[i]);
+        }
     }
 }
