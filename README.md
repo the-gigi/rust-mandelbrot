@@ -5,10 +5,10 @@ This is a Rust learning project. The goal isn't to produce an amazing and effici
 
 It is a very rudimentary and basic implementation.
 
-Its claim to fame is that it is slowly renders the pixels in a spiral expanding from the center.
+Its claim to fame is that it slowly renders the pixels in a spiral pattern expanding from the center.
 
 I implemented a simple Complex struct (see what I did there?) just because. Don't use it for anything else as Rust has
-a proper Complex crate.
+a proper Complex [module](https://docs.rs/num/latest/num/complex/index.html).
 
 # Requirements
 
